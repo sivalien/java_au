@@ -21,13 +21,13 @@ public static int eraseOverlapIntervals (int [][] intervals) {
     Collections.sort(Arrays.asList(intervals), new IntervalComparator());
     int[] prev = intervals[0];
     int res = 0;
-    for (int [] interval: intervals) {
-                if (prev[1] > interval[0]) {
-                    res++;
-                    prev = (interval[1] > prev[1]) ? prev : interval;
-                } else
-                    prev = interval;
-            }
+    for (int i = 1; i < intervals.length ; i++) {
+        if (prev[1] > intervals[i][0]) {
+            res++;
+            prev[1] = intervals[i][1] > prev[1] ? prev[1] : intervals[i][1];
+        } else
+            prev = intervals[i];
+    }
     return res;
 }
 ```
@@ -88,6 +88,6 @@ public int[][] insert(int [][] intervals, int[] newInterval) {
     LinkedList<int []> allIntervals = new LinkedList<>();
     Collections.addAll(allIntervals, intervals);
     allIntervals.add(newInterval);
-    return mergeIntervals(allIntervals.toArray(new int[allIntervals.size()][]));
+    return mergeIntervals(allIntervals.toArray(new int[allIntervals.size()])
 }
 ```
