@@ -7,22 +7,22 @@
 https://leetcode.com/problems/merge-intervals/
 
 ```java
-public static int[][] mergeIntervals (int [][] intervals) {
-    if (intervals.length <= 1) {
+public static int[][] merge (int [][] intervals) {
+    if (intervals.length <= 1)
         return intervals;
-    }
     Arrays.sort(intervals, Comparator.comparingInt(a -> a[0]));
-    LinkedList <int []> merge = new LinkedList<>();
-    merge.add(intervals[0]);
+    LinkedList <int []> merged = new LinkedList<>();
+    merged.add(intervals[0]);
     for (int i = 1; i < intervals.length; i++) {
-        if (merge.getLast()[1] < intervals[i][0])
-            merge.addLast(intervals[i]);
+        if (merged.getLast()[1] < intervals[i][0])
+            merged.addLast(intervals[i]);
         else {
-            int start = merge.getLast()[0];
-            merge.removeLast();
-            merge.addLast(new int[] {start, intervals[i][1]});
+            int start = merged.getLast()[0];
+            int end = (intervals[i][1] > merged.getLast()[1]) ? intervals[i][1] : merged.getLast()[1];
+            merged.removeLast();
+            merged.addLast(new int[] {start, end});
         }
     }
-    return merge.toArray(new int[merge.size()][]);
+    return merged.toArray(new int[merged.size()][]);
 }
 ```
