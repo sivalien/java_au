@@ -10,9 +10,7 @@ https://leetcode.com/problems/intersection-of-two-linked-lists/
 public ListNode getIntersectionNode(ListNode head1, ListNode head2) {
     ListNode p1 = head1;
     ListNode p2 = head2;
-    while (p1 == null || p2 == null || p1.val != p2.val) {
-        if (p1 == null && p2 == null)
-            return null;
+    while ((p1 != null || p2 != null) && p1 != p2) {
         if (p1 == null)
             p1 = head2;
         else
@@ -22,14 +20,6 @@ public ListNode getIntersectionNode(ListNode head1, ListNode head2) {
         else
             p2 = p2.next;
     }
-    ListNode ans = p1;
-    while (p1 != null && p2 != null) {
-        if (p1.val != p2.val) {
-            ans = p1.next;
-        }
-        p1 = p1.next;
-        p2 = p2.next;
-    }
-    return ans;
+    return p1;
 }
 ```
